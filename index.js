@@ -1,22 +1,23 @@
 const express = require('express');
+const models = require('./models');
 const Sequelize = require('sequelize');
-
+const cors = require('cors');
 const app = express();
-const port = 3000;
+const port = 3001;
 
-//initialize sequelize;
-const sequelize = new Sequelize('postgres://cliff:@localhost:5432/traveltroll');
+/* //initialize sequelize;
+const sequelize = new Sequelize('postgres://postgres:w0rdw0rd@localhost:5432/traveltroll');
 
 //Creating user table with on field named user
 const User = sequelize.define('users', {
     username: {
         type: Sequelize.TEXT
     }
-})
+}) */
 
 //Creating Review tables to hold all review.
 //Belongs to a user;
-const Review = sequelize.define('review', {
+/* const Review = sequelize.define('review', {
     review: {
       type: Sequelize.TEXT
     },
@@ -31,10 +32,11 @@ const Review = sequelize.define('review', {
     }
 });
 //Review belongs to user
-User.hasMany(Review);
+User.hasMany(Review); */
 
-User.sequelize.sync({force: true}).then(() => {});
+/* User.sequelize.sync({force: true}).then(() => {});
 Review.sequelize.sync({force: true}).then(() =>{});
+ */
 
 //express replacement for body-parser
 app.use(express.json());
@@ -43,10 +45,12 @@ app.use(express.urlencoded({extended: true}))
 // sets the static folder for html/javascript/css/etc
 app.use(express.static('public'));
 
+app.use(cors());
 
 //read http://localhost:3000/api/
 app.get("/api", (req, res) => {
-    Review.findAll({}).then((reviews) => {
+    models.Review.findAll({}).then((reviews) => {
+        
         res.json(reviews);    
     })  
 })
@@ -55,52 +59,38 @@ app.get("/api", (req, res) => {
 //create http://localhost:3000/api/create
 app.post("/api/create", (req,res) => {
     console.log(req.body);
-
-    /* User.findOrCreate({username: req.body.username}).then((results) => {
-        console.log(results)
-        res.json(results)
-    
-    }) */
-
-    User.findOrCreate({where: {username: req.body.username}})
-    .spread((user,created) =>{
-        console.log("USER: "+user );
-        console.log("CREATED: "+created)
-    }).catch((err) => {
-        console.log(err);
+    models.Review.create(req.body).then((results) => {
+        res.json(results);
     })
-
-    /* User.findOrCreate({where: {username: req.body.username}})
-        .then((results) => {
-            console.log(results);
-            res.json(results);
-        })
-     */
-
-    /* Review.create({
-        review: req.body.review,
-        city: req.body.city,
-        country: req.body.country,
-        rating: req.body.rating
-    },{
-        include: [User]
+})
+app.get("/api/review/:id", (req,res) => {
+    console.log(req.params.id);
+    models.Review.findById(req.params.id).then(results => {
+        res.json(results);
+    })
+})
+//update http://localhost:3000/api/1/edit
+app.put("/api/review/:id/edit", (req,res) => {
+    console.log(req.body);
+    models.Review.update(req.body, {
+        where: {id: req.params.id}
     }).then((results) => {
         res.json(results);
-    }) */
+    })
+    
+})
+//delete http://localhost:3000/api/1/delete
+app.delete('/api/review/:id/delete', (req,res) => {
+    models.Review.destroy({where: {id: req.params.id}}).then((results) => {
+        res.json(results)
+    })
     
 })
 
-//update http://localhost:3000/api/1/edit
-app.put("/api/:id/edit", (req,res) => {
-    res.json({put: "Route"})
-})
-//delete http://localhost:3000/api/1/delete
-app.delete('/api/:id/delete', (req,res) => {
-    res.json({delete: "Route"})
+models.sequelize.sync().then(() => {
+    app.listen(port, () => {
+        console.log("Running on "+ port);
+    })
 })
 
 
-
-app.listen(port, () => {
-    console.log("Running on "+ port);
-})
