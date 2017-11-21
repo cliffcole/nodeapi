@@ -1,0 +1,25 @@
+{
+  "name": "traveltroll",
+  "version": "0.0.1",
+  "description": "travel troll",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sunit-Kulkarni/TravelTroll.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Sunit-Kulkarni/TravelTroll/issues"
+  },
+  "homepage": "https://github.com/Sunit-Kulkarni/TravelTroll#readme",
+  "dependencies": {
+    "express": "^4.16.2",
+    "nodemon": "^1.12.1",
+    "pg": "^7.4.0",
+    "sequelize": "^4.22.6"
+  }
+}
