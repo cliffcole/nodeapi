@@ -49,7 +49,7 @@ app.use(cors());
 
 //read http://localhost:3000/api/
 app.get("/api", (req, res) => {
-    models.Review.findAll({}).then((reviews) => {
+    models.Review.findAll({order: {}}).then((reviews) => {
         
         res.json(reviews);    
     })  
