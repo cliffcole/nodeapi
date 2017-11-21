@@ -13,11 +13,34 @@ $(() => {
     renderReviews = (reviews)=> {
         let recentReviews = "";
 
-        reviews.forEach((review) => {
+        /* reviews.forEach((review) => {
             recentReviews += "<div class='row'>";
             recentReviews += "<div class='col'>";
             recentReviews += review.country + " - <a data-toggle='modal' data-target='#modifyReview' data-reviewid='"+review.id+"'>Edit</a>"
             recentReviews += "</div></div>";
+        });
+        $(".top-reviews").append(recentReviews); */
+
+        reviews.forEach((review) => {
+            recentReviews += "<div class='row'>"
+            recentReviews += "<div class='userReview'>"
+            recentReviews += "<div class='image col-2'>"
+            recentReviews += "<img src='location.png'>"
+            recentReviews += "</div>"
+            recentReviews += "<div class='reviewContent col-10'>"
+            recentReviews += "<h5 class='place'>"
+            recentReviews += review.city + ", " + review.country
+            recentReviews += "</h5>"
+            recentReviews += "<h6 class='stars'>"
+            recentReviews += "rated " + review.rating + " out of 5 stars"
+            recentReviews += "</h6>"
+            recentReviews += "<h6 class='user'>"
+            recentReviews += review.username
+            recentReviews += "</h6>"
+            recentReviews += "<h7 class='theReview'>"
+            recentReviews += review.review
+            recentReviews += "</h7>"
+            recentReviews += "</div></div></div>"
         });
         $(".top-reviews").append(recentReviews);
     };
@@ -33,10 +56,10 @@ $(() => {
         .done((results) => {
             console.log(results);
             
-            $('input#username').val(results.username);
-            $('textarea#review').val(results.review);
-            $('input#city').val(results.city);
-            $('input#country').val(results.country);
+            $('input#username1').val(results.username);
+            $('textarea#review1').val(results.review);
+            $('input#city1').val(results.city);
+            $('input#country1').val(results.country);
             $('#rating1').empty();
             let option = "";
             for(let x = 1; x <= 5; x++){
@@ -61,10 +84,10 @@ $(() => {
         let reviewId = clickedReview.data('reviewid');
         let data = {};
         let form = $(e.currentTarget).parent().parent();
-        let username = $(form).find('input[name="username"]').val();
-        let review = $(form).find('textarea[name="review"]').val(); 
-        let city = $(form).find('input[name="city"]').val();
-        let country = $(form).find('input[name="country"]').val();
+        let username = $(form).find('input[name="username1"]').val();
+        let review = $(form).find('textarea[name="review1"]').val(); 
+        let city = $(form).find('input[name="city1"]').val();
+        let country = $(form).find('input[name="country1"]').val();
         let rating = $(form).find('input[name="rating1"]').val();
         data.username = username;
         data.review = review
@@ -104,6 +127,7 @@ $(() => {
     $("#submitReview ").on("submit", (e) => {
         
         e.preventDefault();
+        console.log(e.currentTarget);
         let values = $(e.currentTarget).serializeArray();
         console.log(values);
         let data = {};
