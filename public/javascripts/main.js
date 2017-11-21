@@ -22,7 +22,7 @@ $(() => {
         $(".top-reviews").append(recentReviews); */
 
         reviews.forEach((review) => {
-            recentReviews += "<div class='row'>"
+            recentReviews += "<a data-toggle='modal' data-target='#modifyReview' data-reviewid='"+review.id+"'><div class='row'>"
             recentReviews += "<div class='userReview'>"
             recentReviews += "<div class='image col-2'>"
             recentReviews += "<img src='location.png'>"
@@ -40,7 +40,7 @@ $(() => {
             recentReviews += "<h7 class='theReview'>"
             recentReviews += review.review
             recentReviews += "</h7>"
-            recentReviews += "</div></div></div>"
+            recentReviews += "</div></div></div></a>"
         });
         $(".top-reviews").append(recentReviews);
     };
