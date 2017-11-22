@@ -2,7 +2,7 @@ $(() => {
 //JQUERY STUFF IN HERE
     
     $.ajax({
-        url: "http://troll.cliffcole.org/api",
+        url: "http://localhost:3001/api",
         method:"GET"
     })
     .done((reviews)=> {
@@ -23,11 +23,11 @@ $(() => {
 
         reviews.forEach((review) => {
             recentReviews += "<a data-toggle='modal' data-target='#modifyReview' data-reviewid='"+review.id+"'><div class='row'>"
-            recentReviews += "<div class='userReview'>"
-            recentReviews += "<div class='image col-2'>"
+            //recentReviews += "<div class='userReview'>"
+            recentReviews += "<div class='userReview image col-2'>"
             recentReviews += "<img src='location.png'>"
             recentReviews += "</div>"
-            recentReviews += "<div class='reviewContent col-10'>"
+            recentReviews += "<div class='userReview reviewContent col-10'>"
             recentReviews += "<h5 class='place'>"
             recentReviews += review.city + ", " + review.country
             recentReviews += "</h5>"
@@ -40,7 +40,8 @@ $(() => {
             recentReviews += "<h7 class='theReview'>"
             recentReviews += review.review
             recentReviews += "</h7>"
-            recentReviews += "</div></div></div></a>"
+            //recentReviews += "</div></div></div></a>"
+            recentReviews += "</div></div></a>"
         });
         $(".top-reviews").append(recentReviews);
     };
@@ -50,7 +51,7 @@ $(() => {
         let reviewId = clickedReview.data('reviewid');
         console.log(reviewId);
         $.ajax({
-            url: "http://troll.cliffcole.org/api/review/"+reviewId,
+            url: "http://localhost:3001/api/review/"+reviewId,
             method: "GET"
         })
         .done((results) => {
@@ -98,7 +99,7 @@ $(() => {
         console.log(data);
 
         $.ajax({
-            url: "http://troll.cliffcole.org/api/review/"+reviewId +"/edit",
+            url: "http://localhost:3001/api/review/"+reviewId +"/edit",
             method: "PUT",
             contentType: 'application/json',
             data: JSON.stringify(data),
@@ -115,7 +116,7 @@ $(() => {
         let reviewId = clickedReview.data('reviewid');
         console.log(reviewId);
         $.ajax({
-            url: "http://troll.cliffcole.org/api/review/"+reviewId +"/delete",
+            url: "http://localhost:3001/api/review/"+reviewId +"/delete",
             method: "DELETE"
 
         })
@@ -136,7 +137,7 @@ $(() => {
         });
         console.log(data);
         $.ajax({
-            url: "http://troll.cliffcole.org/api/create",
+            url: "http://localhost:3001/api/create",
             method: "POST",
             contentType: 'application/json',
             data: JSON.stringify(data),
