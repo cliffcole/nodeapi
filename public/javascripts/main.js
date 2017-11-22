@@ -2,7 +2,7 @@ $(() => {
 //JQUERY STUFF IN HERE
     
     $.ajax({
-        url: "http://localhost:3001/api",
+        url: "http://127.0.0.1:3001/api",
         method:"GET"
     })
     .done((reviews)=> {
@@ -50,7 +50,7 @@ $(() => {
         let reviewId = clickedReview.data('reviewid');
         console.log(reviewId);
         $.ajax({
-            url: "http://localhost:3001/api/review/"+reviewId,
+            url: "http://127.0.0.1:3001/api/review/"+reviewId,
             method: "GET"
         })
         .done((results) => {
@@ -98,7 +98,7 @@ $(() => {
         console.log(data);
 
         $.ajax({
-            url: "http://localhost:3001/api/review/"+reviewId +"/edit",
+            url: "http://127.0.0.1:3001/api/review/"+reviewId +"/edit",
             method: "PUT",
             contentType: 'application/json',
             data: JSON.stringify(data),
@@ -115,7 +115,7 @@ $(() => {
         let reviewId = clickedReview.data('reviewid');
         console.log(reviewId);
         $.ajax({
-            url: "http://localhost:3001/api/review/"+reviewId +"/delete",
+            url: "http://127.0.0.1:3001/api/review/"+reviewId +"/delete",
             method: "DELETE"
 
         })
@@ -136,7 +136,7 @@ $(() => {
         });
         console.log(data);
         $.ajax({
-            url: "http://localhost:3001/api/create",
+            url: "http://127.0.0.1:3001/api/create",
             method: "POST",
             contentType: 'application/json',
             data: JSON.stringify(data),

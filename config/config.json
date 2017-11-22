@@ -1,6 +1,6 @@
 {
     "development": {
-      "username": "cliff",
+      "username": "postgres",
       "password": "",
       "database": "traveltroll",
       "host": "127.0.0.1",
@@ -14,9 +14,9 @@
       "dialect": "postgres"
     },
     "production": {
-      "username": "root",
+      "username": "postgres",
       "password": null,
-      "database": "database_production",
+      "database": "traveltroll",
       "host": "127.0.0.1",
       "dialect": "postgres"
     }
